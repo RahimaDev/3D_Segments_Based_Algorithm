@@ -13,7 +13,7 @@ Where:
 
 img_lines.txt: txt file contains informations about 3D segments reconstructed from an image sequence.
 
-lidar_lines: txt fole contains informations about 3D segments extracted from LiDAR scan
+lidar_lines: txt file contains informations about 3D segments extracted from LiDAR scan
 
 0.54: is a distance threshold above which a line is just
 considered an outlier (can be adapted by the users).
