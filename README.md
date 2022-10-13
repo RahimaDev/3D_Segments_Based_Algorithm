@@ -1,4 +1,4 @@
-# 3D segments based registration framework by RAhima Djahel (ENPC), Pascal Monasse (ENPC) and Bruno Vallet (IGN).
+# 3D segments based registration framework by Rahima Djahel (ENPC), Pascal Monasse (ENPC) and Bruno Vallet (IGN).
 
 # Required dependencies: PCL, Eigen, OpenCV.
 
