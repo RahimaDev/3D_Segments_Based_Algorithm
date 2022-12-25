@@ -69,7 +69,17 @@ double SLine_To_SLine_dist(Line L1,Line L2)
     return D;
 
 }
+Line  inverse_l(Line l)
+{
+    Line L2;
+    L2.A=l.B;
+    L2.B=l.A;
+    L2.d=direct_vec(L2.A,L2.B);
+    L2.length= l.length;
+    L2.Id=l.Id;
 
+    return L2;
+}
 
 double Angle(Eigen::Vector3d v1, Eigen::Vector3d v2)
 
@@ -210,5 +220,4 @@ double overlap(Line l1, Line l2)
 
 
 }
-
 
