@@ -4,7 +4,8 @@
 cmake_minimum_required( VERSION 2.8 )
 # Create Project
 project( 3Dseg_based_registration )
-add_executable( 3Dseg_Registration ./src/3Dseg_Registration.cpp
+add_executable( 3Dseg_Registration ./src/3Dseg_Registration.cpp)
+add_executable( Test_3DS ./src/Test_3DS.cpp
  )
 
 include_directories(include/)
@@ -45,5 +46,6 @@ if( PCL_FOUND AND OpenCV_FOUND )
   # [Linker]>[Input]>[Additional Dependencies]
   target_link_libraries(  3Dseg_Registration ${PCL_LIBRARIES} )
   target_link_libraries(  3Dseg_Registration ${OpenCV_LIBS} )
+    target_link_libraries(   Test_3DS ${PCL_LIBRARIES} )
+  target_link_libraries(   Test_3DS ${OpenCV_LIBS} )
 endif()
-
