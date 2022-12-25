@@ -365,7 +365,7 @@ vector<vector<int>> assoc_valid(std::pair<Cluster, Cluster> S1, std::pair<Cluste
 
 
 int main (int argc, char** argv)
-{cout << "Usage: " << argv[0] << " file1.txt file2.txt    d_thr dist" << endl;
+{cout << "Usage: " << argv[0] << " file1.txt file2.txt    d_thr dist V" << endl;
     if(argc<1) return 1;
 
     int m = 1;
@@ -383,6 +383,9 @@ int main (int argc, char** argv)
     double  dist=6.;
     if (argc > m)
         dist = atof(argv[m++]);
+    int V=0;
+    if (argc > m)
+        V = atoi(argv[m++]);
     srand (time(NULL));
 
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud1(new pcl::PointCloud<pcl::PointXYZ>);
@@ -546,13 +549,12 @@ int main (int argc, char** argv)
     }
 
 
-    std::vector<Cluster> cl1,cl2;
+    std::vector<Cluster> cl1,cl2,clu1,clu2;
     ////Clustering
     cl1=Cluster_generation(ln1);
-
-
+    std::copy(cl1.begin(), cl1.end(), std::back_inserter(clu1));
     cl2=Cluster_generation(ln2);
-
+    std::copy(cl2.begin(), cl2.end(), std::back_inserter(clu2));
     /// selecting the vertical clusters
 
     Cluster V1,V2;
@@ -673,21 +675,27 @@ int main (int argc, char** argv)
     /////RANSAC
     int k=0;
     do{
-
-
-
-        int a=rand() % cl1.size();
-
-        int b=rand() % cl2.size();
-
-
         Cluster C1,C2,C3,C4;
-        C1=V1;
-        C2=cl1[a];
-        C3=V2;
-        C4=cl2[b];
-
-
+        if(V==0)
+        {
+            int a=rand() % clu1.size();
+            int b=rand() % clu1.size();
+            int c=rand() % clu2.size();
+            int d=rand() % clu2.size();
+            C1=clu1[a];
+            C2=clu1[b];
+            C3=clu2[c];
+            C4=clu2[d];
+        }
+        else
+        {
+            int a=rand() % cl1.size();
+            int b=rand() % cl2.size();
+            C1=V1;
+            C2=cl1[a];
+            C3=V2;
+            C4=cl2[b];
+        }
         std::pair<Cluster, Cluster>S1=make_pair(C1,C2);
         std::pair<Cluster, Cluster>S2=make_pair(C3,C4);
         bool valid =false;
@@ -723,7 +731,7 @@ int main (int argc, char** argv)
 
                     R0=Rotation(u0,u2,v0,v2);
                     double N=angles(R0);
-                    if(N>0)
+                    //if(N>0)
                     {
 
 
@@ -769,7 +777,7 @@ int main (int argc, char** argv)
 
 
                             }}}}}}}
-    while (k<500000);
+    while (k<250000);
     std::cout<<Tr<<std::endl;
     std::cout<<"Angle="<< angles(R2)<<std::endl;
     qt.linear()=R2;
@@ -783,4 +791,3 @@ int main (int argc, char** argv)
     std::cout<<"Mini="<< Mini<<std::endl;
     return 0;
 }
-
