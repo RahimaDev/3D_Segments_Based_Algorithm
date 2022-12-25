@@ -3,9 +3,19 @@
 # Required dependencies: PCL, Eigen, OpenCV.
 
 3Dseg_Registration: an efficient algorithm for Image/LiDAR data registration.
+# Test on synthetic data
 
-# Test:
-./3Ddeg_Registration ../data/img_lines.txt ../data/lidar_lines.txt 1     9
+./Test_3DS  1.2 2
+
+
+1.2: is a distance threshold above which a line is just considered an outlier (can be adapted by the users).
+
+2: is a distance threshold to avoid selecting coplanar segment pairs (can be adapted by the users).
+
+
+
+# Test on real data:
+./3Ddeg_Registration ../data/img_lines.txt ../data/lidar_lines.txt 1.2     2  0
 
 
 Where:
@@ -15,10 +25,16 @@ img_lines.txt: txt file contains informations about 3D segments reconstructed fr
 
 lidar_lines: txt file contains informations about 3D segments extracted from LiDAR scan
 
-1: is a distance threshold above which a line is just
+1.2: is a distance threshold above which a line is just
 considered an outlier (can be adapted by the users).
 
-9: is a distance threshold to avoid selecting coplanar segment pairs (can be adapted by the users).
+2: is a distance threshold to avoid selecting coplanar segment pairs (can be adapted by the users).
+
+0: is the verticality 
+
+If the image and/or LiDAR can be vertically oriented (V=1), we obviously associate the vertical cluster of the image data to the vertical cluster of the LiDAR data, and then associate
+any non vertical cluster of the image data with any non vertical cluster of the LiDAR data. In the other case (at least
+one data-set cannot be vertically oriented) (V=0), we associate any pair of clusters of the image data to any pair of clusters of LiDAR data if they have a compatible angle.
 
 # To visualize the result:
 
