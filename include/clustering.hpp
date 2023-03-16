@@ -56,7 +56,7 @@ Eigen::Vector3d Mean_dir(Cluster C)
 int k_max(std::vector<Cluster> vec, Eigen::Vector3d d)
 {
 
-    int l=-1;
+    int l=0;
     double max=0;
     for(int i=0; i<vec.size(); i++)
     {
